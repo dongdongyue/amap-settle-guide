@@ -169,7 +169,7 @@
 ### 安装
 
 ```bash
-clawdhub install amap-settle-guide
+openclaw skills install @dongdongyue/amap-settle-guide
 ```
 
 > 需要一个高德 API Key（免费），见下方 [环境变量](#环境变量)。
@@ -336,7 +336,7 @@ Three complete scenarios with report, CSV data, and interactive map:
 ### Install
 
 ```bash
-clawdhub install amap-settle-guide
+openclaw skills install @dongdongyue/amap-settle-guide
 ```
 
 > Requires a free Amap API Key. See [Environment Variables](#environment-variables).

@@ -9,7 +9,7 @@
 
 把这个 Skill 丢给 AI，你只需要说：
 
-> *"我在南京小米实习，预算 3000，帮我找房"*
+> *"我在望京上班，预算 5000，帮我找房"*
 
 **30 秒后你会拿到：**
 - 🥇 **Top 3 推荐区域**（附评分 + 通勤方式 + 每月总花费）
@@ -186,9 +186,9 @@ openclaw skills install @dongdongyue/amap-settle-guide
 ### 使用
 
 ```
-"我在南京新街口实习，帮我推荐住哪"        → 自动发现候选区域 + 推荐
-"我在望京上班，对比回龙观和天通苑"         → 评估指定区域
-"我在国贸上班，预算 5000"                → 带预算的推荐
+"我在望京上班，帮我推荐住哪"              → 自动发现候选区域 + 推荐
+"我在国贸上班，对比回龙观和天通苑"         → 评估指定区域
+"我在西二旗上班，预算 4000"               → 带预算的推荐
 "帮我生成一个地图"                       → 输出交互式 HTML 地图
 ```
 
@@ -256,7 +256,7 @@ You just got an internship / new job in a city you don't know. You need to find 
 
 Drop this Skill into your AI assistant and say:
 
-> *"I'm interning at DJI Shenzhen, budget ¥4000/mo, help me find a place"*
+> *"I work at Wangjing, budget ¥5000/mo, help me find a place"*
 
 **30 seconds later you get:**
 - 🥇 **Top 3 recommended areas** with scores, commute method, and monthly total cost
@@ -351,9 +351,9 @@ openclaw skills install @dongdongyue/amap-settle-guide
 ### Usage
 
 ```
-"I'm interning at Xiaomi Nanjing, help me find a place"    → auto-discover areas + recommend
-"I work at Wangjing, compare Huilongguan vs Tiantongyuan"  → evaluate specific areas
-"I work at Guomao, budget 5000"                            → budget-aware recommendations
+"I work at Wangjing, recommend where to live"              → auto-discover areas + recommend
+"I work at Guomao, compare Huilongguan vs Tiantongyuan"    → evaluate specific areas
+"I work at Xierqi, budget 4000"                            → budget-aware recommendations
 "Generate a map for me"                                    → interactive HTML map output
 ```
 

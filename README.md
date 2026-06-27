@@ -24,6 +24,10 @@
 
 [中文](#中文) | [English](#english)
 
+**中文**：[效果演示](#效果演示) · [实际示例](#实际示例) · [安装](#安装) · [使用](#使用) · [常见问题](#常见问题) · [项目结构](#项目结构)
+
+**English**：[Demo](#demo) · [Real Examples](#real-examples) · [Install](#install) · [Usage](#usage) · [FAQ](#faq)
+
 </div>
 
 ---

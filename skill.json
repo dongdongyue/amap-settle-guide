@@ -1,0 +1,44 @@
+{
+  "name": "amap-settle-guide",
+  "display_name": "通勤找房助手 Commute Rental Guide",
+  "version": "1.0.0",
+  "description": "输入上班地点，沿地铁线自动发现适合租房的区域，评估通勤时间、周边配套、租金性价比，推荐 Top 3 区域 + 具体房源 + 找房链接。面向实习生、应届毕业生、换工作人群。支持文字报告、CSV 导出、交互地图三种输出。",
+  "descriptionZh": "输入上班地点，沿地铁线自动发现适合租房的区域，评估通勤时间、周边配套、租金性价比，推荐 Top 3 区域 + 具体房源 + 找房链接。面向实习生、应届毕业生、换工作人群。支持文字报告、CSV 导出、交互地图三种输出。",
+  "author": "dongdongyue",
+  "repository": "https://github.com/dongdongyue/amap-settle-guide",
+  "homepage": "https://github.com/dongdongyue/amap-settle-guide#readme",
+  "license": "MIT",
+  "requires": {
+    "env": [
+      "AMAP_API_KEY"
+    ],
+    "primaryEnv": "AMAP_API_KEY"
+  },
+  "category": "life",
+  "tags": [
+    "commute",
+    "rental",
+    "amap",
+    "map",
+    "housing",
+    "通勤",
+    "租房",
+    "高德",
+    "地图",
+    "生活"
+  ],
+  "examples": [
+    {
+      "input": "我在南京小米实习，预算3000，帮我找房",
+      "description": "实习生找房，自动发现候选区域 + 推荐 Top 3"
+    },
+    {
+      "input": "我在望京上班，对比回龙观和天通苑",
+      "description": "指定区域对比评估"
+    },
+    {
+      "input": "我在国贸上班，预算5000，帮我生成地图",
+      "description": "带预算 + 交互地图输出"
+    }
+  ]
+}

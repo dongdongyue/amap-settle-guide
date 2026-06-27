@@ -53,8 +53,7 @@
 **手机端 · 细节展示**
 
 <p align="center">
-  <img src="docs/mobile-map-detail-1.jpg" alt="手机端细节展示1" width="360">
-  <img src="docs/mobile-map-detail-2.jpg" alt="手机端细节展示2" width="360">
+  <img src="docs/mobile-map-detail.jpg" alt="手机端细节展示" width="360">
 </p>
 
 **手机端 · 房源链接**
@@ -221,8 +220,7 @@ amap-settle-guide/
 │   ├── screenshot-map.png         # 电脑端全图
 │   ├── screenshot-detail.png      # 电脑端细节
 │   ├── mobile-map-link.jpg        # 手机端全图
-│   ├── mobile-map-detail-1.jpg    # 手机端细节1
-│   ├── mobile-map-detail-2.jpg    # 手机端细节2
+│   ├── mobile-map-detail.jpg      # 手机端细节
 │   └── mobile-map-detail-house-link-2.jpg  # 手机端房源链接
 ├── references/                    # 运行时模板
 │   ├── html-template-commute.md   # 交互地图模板
@@ -288,11 +286,10 @@ No scrolling through 10 forum posts. No measuring distances on a map. No spreads
   <img src="docs/mobile-map-link.jpg" alt="Mobile Full Map" width="360">
 </p>
 
-**Mobile · Detail Views**
+**Mobile · Detail View**
 
 <p align="center">
-  <img src="docs/mobile-map-detail-1.jpg" alt="Mobile Detail 1" width="360">
-  <img src="docs/mobile-map-detail-2.jpg" alt="Mobile Detail 2" width="360">
+  <img src="docs/mobile-map-detail.jpg" alt="Mobile Detail" width="360">
 </p>
 
 **Mobile · Housing Links**

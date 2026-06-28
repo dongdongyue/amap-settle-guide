@@ -130,8 +130,22 @@
 
 ## 🚀 安装
 
+### 方式一：OpenClaw 一键安装
+
 ```bash
 openclaw skills install @dongdongyue/amap-settle-guide
+```
+
+### 方式二：GitHub 手动安装
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/dongdongyue/amap-settle-guide.git
+
+# 2. 将 SKILL.md 导入你的 AI 助手
+#    Claude Code：复制 SKILL.md 内容到项目 .claude/skills/ 目录
+#    OpenClaw：openclaw skills install ./amap-settle-guide
+#    其他平台：将 SKILL.md 作为系统提示词加载
 ```
 
 ### 环境变量

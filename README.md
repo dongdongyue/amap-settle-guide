@@ -21,8 +21,9 @@
 
 [![Amap Skill](https://img.shields.io/badge/高德开放平台-Skill-blue)](https://lbs.amap.com/)
 [![Version](https://img.shields.io/badge/version-1.0.0-green)]()
+[![Platform](https://img.shields.io/badge/platform-QoderWork-orange)](https://qoder.com)
 
-[中文](#中文) | [English](#english)
+[快速开始](#安装) · [示例](#实际示例) · [安装](#安装) · [使用](#使用) · [常见问题](#常见问题) · [English](#english)
 
 **中文**：[效果演示](#效果演示) · [实际示例](#实际示例) · [安装](#安装) · [使用](#使用) · [常见问题](#常见问题) · [项目结构](#项目结构)
 

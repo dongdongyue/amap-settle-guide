@@ -23,8 +23,6 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-green)]()
 [![Platform](https://img.shields.io/badge/platform-AI%20Agent%20%7C%20Claude%20Code%20%7C%20OpenClaw%20%7C%20QoderWork-blueviolet)]()
 
-[快速开始](#安装) · [示例](#实际示例) · [安装](#安装) · [使用](#使用) · [常见问题](#常见问题) · [English](#english)
-
 **中文**：[效果演示](#效果演示) · [实际示例](#实际示例) · [安装](#安装) · [使用](#使用) · [常见问题](#常见问题) · [项目结构](#项目结构)
 
 **English**：[Demo](#demo) · [Real Examples](#real-examples) · [Install](#install) · [Usage](#usage) · [FAQ](#faq)

@@ -68,19 +68,18 @@
 
 ### 实际示例
 
-三个真实场景的完整输出（报告 + CSV + 交互地图）：
+两个真实场景，基于高德 API 实时数据生成：
 
-| 场景 | 公司 | 预算 | 推荐房源价格区间 | 示例文件 |
-|------|------|------|------------------|----------|
-| 🏢 北京高德 | 望京SOHO | 5000元/月 | 1500-6500元 | [`examples/beijing-amap/`](examples/beijing-amap/) |
-| 🚁 深圳大疆 | 天空之城 | 4000元/月 | 800-5000元 | [`examples/shenzhen-dji/`](examples/shenzhen-dji/) |
-| 📱 南京小米 | 建邺科技园 | 3000元/月 | 700-3500元 | [`examples/nanjing-xiaomi/`](examples/nanjing-xiaomi/) |
+| 场景 | 公司 | 预算 | 人群 | 推荐 | 示例文件 |
+|------|------|------|------|------|----------|
+| 🏢 北京望京 | 高德/阿里 | 3000元/月 | 一个人·应届 | 花家地 20min·合租单间 | [`examples/beijing-amap/`](examples/beijing-amap/) |
+| 📱 南京小米 | 小米科技园 | 4000元/月 | 情侣·整租一居 | 油坊桥 32min·整租 | [`examples/nanjing-xiaomi/`](examples/nanjing-xiaomi/) |
 
 每个示例包含：
-- `report.md` — 推荐报告（不同人群方案 + 通勤体验 + 生活成本 + 避坑指南）
-- `rental_areas.csv` — 20 个区域对比表
+- `report.md` — 推荐报告 + 原始 API 数据可复查
+- `rental_areas.csv` — 区域对比表
 - `rental_listings.csv` — 房源明细表
-- `map.html` — 交互地图（路线切换 + 详情弹窗）
+- `map.html` — 交互地图（公交/驾车切换 + 点击弹详情 + 手机安全区适配）
 
 ---
 
@@ -381,6 +380,34 @@ All cities with metro systems. Rental reference data covers Beijing, Shanghai, G
 
 **Q: Do I need to install Python?**
 No. This Skill is pure prompt-driven — the AI assistant calls Amap's HTTP API directly. The Anjuke scraper in `references/anjuke-scraper.md` is an optional advanced feature that requires DrissionPage.
+
+### Project Structure
+
+```
+amap-settle-guide/
+├── README.md                      # This file
+├── SKILL.md                       # Skill definition
+├── skill.json                     # Metadata
+├── LICENSE                        # MIT License
+├── .env.example                   # Environment variable template
+├── .gitignore
+├── docs/                          # Screenshots & demos
+│   ├── screenshot-map.png         # Desktop full map
+│   ├── screenshot-detail.png      # Desktop detail view
+│   ├── mobile-map-link.jpg        # Mobile full map
+│   ├── mobile-map-detail.jpg      # Mobile detail view
+│   └── mobile-map-detail-house-link-2.jpg  # Mobile housing links
+├── references/                    # Runtime templates
+│   ├── html-template-commute.md   # Interactive map template
+│   ├── text-card-commute.md       # CSS text card template
+│   ├── rental-reference.md        # 8-city rental reference
+│   ├── anjuke-scraper.md          # Anjuke scraper
+│   └── social-rental-scraper.md   # 58.com / Lianjia scraper
+└── examples/                      # Sample outputs
+    ├── beijing-amap/              # Beijing Amap
+    ├── shenzhen-dji/              # Shenzhen DJI
+    └── nanjing-xiaomi/            # Nanjing Xiaomi
+```
 
 ---
 

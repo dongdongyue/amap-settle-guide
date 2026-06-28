@@ -599,3 +599,29 @@ window.toggleLegend = function() {
 - **底部抽屉** — 触摸滑动展开/收起
 - **折叠图例** — 右下角按钮展开
 - **桌面端** — 768px 以上时抽屉变右侧面板
+
+## 移动端适配标准
+
+生成 HTML 时必须包含以下移动端优化：
+
+```html
+<!-- viewport 必须含 viewport-fit=cover -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- CSS 必须包含 -->
+<style>
+*{-webkit-tap-highlight-color:transparent}  /* 去掉点击灰色高亮 */
+.top-bar{padding:env(safe-area-inset-top,12px) 16px 12px}  /* 避开刘海 */
+.detail-popup{padding:0 20px max(20px,env(safe-area-inset-bottom,20px))}  /* 避开 Home Indicator */
+</style>
+
+<!-- JS Key 注入：支持 ?key=&security= URL 参数，硬编码 fallback -->
+<script>
+var p=new URLSearchParams(location.search);
+var JS_KEY=p.get('key')||'{AMAP_JSAPI_KEY}';
+var SEC_CODE=p.get('security')||'{AMAP_SECURITY_JS_CODE}';
+window._AMapSecurityConfig={securityJsCode:SEC_CODE};
+</script>
+```
+
+Agent 生成时：`{AMAP_JSAPI_KEY}` 和 `{AMAP_SECURITY_JS_CODE}` 替换为环境变量值。未设置则保留占位符，用户可通过 `?key=xxx&security=xxx` URL 参数注入。

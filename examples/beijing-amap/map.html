@@ -1,276 +1,86 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>通勤找房 — 望京SOHO(高德总部)</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;overflow:hidden}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"><title>通勤找房 · 望京</title><style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{height:100%;overflow:hidden}
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f0f2f5}
 #container{width:100%;height:100%}
-.top-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:env(safe-area-inset-top,12px) 16px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:env(safe-area-inset-top,12px) 16px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .top-bar h2{font-size:15px;color:#1a1a1a;flex:1;letter-spacing:-.3px}
-.top-bar .tag{font-size:11px;font-weight:600;background:linear-gradient(135deg,#e6f7ff,#bae7ff);color:#096dd9;padding:4px 10px;border-radius:12px}
-.bottom-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -2px 16px rgba(0,0,0,.08);height:42vh;display:flex;flex-direction:column;transition:height .35s cubic-bezier(.4,0,.2,1)}
-.bottom-sheet.expanded{height:75vh}
-.sheet-handle{width:36px;height:4px;border-radius:2px;background:#e0e0e0;margin:10px auto 4px;flex-shrink:0;cursor:grab;touch-action:none}
-.card-slider{display:flex;overflow-x:auto;gap:10px;padding:8px 16px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;flex-shrink:0}
-.card-slider::-webkit-scrollbar{display:none}
-.area-card{min-width:240px;flex-shrink:0;scroll-snap-align:start;background:#fafafa;border-radius:14px;padding:14px;border:2px solid transparent;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;-webkit-tap-highlight-color:transparent}
+.top-bar .tag{font-size:11px;font-weight:600;background:#fff1f0;color:#cf1322;padding:4px 10px;border-radius:12px}
+.bottom-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -2px 16px rgba(0,0,0,.08);height:38vh;display:flex;flex-direction:column;transition:height .35s cubic-bezier(.4,0,.2,1)}
+.bottom-sheet.expanded{height:70vh}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:#e0e0e0;margin:10px auto 6px;flex-shrink:0;cursor:grab;touch-action:none}
+.area-card{min-width:220px;flex-shrink:0;scroll-snap-align:start;background:#fafafa;border-radius:14px;padding:14px;border:2px solid transparent;cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
 .area-card:active{transform:scale(.97)}
+.area-card.selected{border-color:#1890ff;background:#e6f7ff}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.card-name{font-size:15px;font-weight:700;color:#1a1a1a}
-.card-score{font-size:22px;font-weight:800;padding:2px 10px;border-radius:10px;color:#fff;line-height:1.2}
-.card-commute{display:flex;gap:8px;margin-bottom:10px}
-.commute-item{background:#fff;padding:8px 10px;border-radius:10px;text-align:center;flex:1;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.commute-num{font-size:17px;font-weight:700;color:#1a1a1a}
-.commute-lbl{font-size:10px;color:#999;margin-top:2px}
+.card-name{font-size:15px;font-weight:700}.card-score{font-size:22px;font-weight:800;padding:2px 10px;border-radius:10px;color:#fff}
+.card-commute{display:flex;gap:8px;margin-bottom:8px}
+.commute-item{background:#fff;padding:8px 10px;border-radius:10px;text-align:center;flex:1}
+.commute-num{font-size:16px;font-weight:700}.commute-lbl{font-size:10px;color:#999;margin-top:2px}
 .card-amenity{display:flex;gap:5px;flex-wrap:wrap}
-.amenity-tag{padding:3px 7px;background:#fff;border-radius:8px;font-size:10px;color:#888;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.amenity-tag b{color:#555;font-weight:600}
-.rank-section{padding:0 16px 12px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.amenity-tag{padding:3px 7px;background:#fff;border-radius:8px;font-size:10px;color:#888}
+.card-slider{display:flex;overflow-x:auto;gap:10px;padding:8px 16px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;flex-shrink:0}
+.card-slider::-webkit-scrollbar{display:none}
+.rank-section{padding:0 16px 12px;flex:1;overflow-y:auto}
 .rank-title{font-size:13px;font-weight:600;color:#666;padding:6px 0 8px;border-bottom:1px solid #f0f0f0}
 .rank-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #fafafa;gap:10px}
 .rank-medal{font-size:18px;width:24px;text-align:center;flex-shrink:0}
-.rank-name{font-size:13px;font-weight:600;color:#333;width:60px;flex-shrink:0}
+.rank-name{font-size:13px;font-weight:600;width:60px;flex-shrink:0}
 .rank-bar-wrap{flex:1;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden}
 .rank-bar{height:100%;border-radius:3px;transition:width .6s ease}
-.rank-score-text{font-size:13px;font-weight:700;color:#1890ff;width:36px;text-align:right;flex-shrink:0}
+.rank-score{font-size:13px;font-weight:700;color:#1890ff;width:32px;text-align:right;flex-shrink:0}
 .overlay{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s ease}
 .overlay.show{opacity:1;pointer-events:auto}
-.detail-popup{position:fixed;left:0;right:0;bottom:0;z-index:2000;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.12);padding:0 20px 20px;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.detail-popup{position:fixed;left:0;right:0;bottom:0;z-index:2000;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.12);padding:16px 20px max(20px,env(safe-area-inset-bottom,20px));transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);max-height:75vh;overflow-y:auto}
 .detail-popup.show{transform:translateY(0)}
-.detail-handle{width:36px;height:4px;border-radius:2px;background:#e0e0e0;margin:12px auto 8px}
 .detail-close{position:absolute;top:10px;right:14px;width:30px;height:30px;border-radius:50%;background:#f0f0f0;border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#999}
-.detail-close:active{background:#e0e0e0}
-.detail-header{margin-bottom:14px;padding-right:36px}
-.detail-name{font-size:18px;font-weight:700}
-.detail-subtitle{font-size:12px;color:#999;margin-top:2px}
-.detail-stats{display:flex;gap:8px;margin-bottom:16px}
+.detail-name{font-size:18px;font-weight:700;padding-right:36px;margin-bottom:12px}
+.detail-stats{display:flex;gap:8px;margin-bottom:14px}
 .detail-stat{background:#f7f8fa;padding:10px 0;border-radius:10px;text-align:center;flex:1}
-.detail-stat .num{font-size:20px;font-weight:700}
-.detail-stat .num-unit{font-size:11px;font-weight:400}
-.detail-stat .lbl{font-size:10px;color:#999;margin-top:2px}
-.detail-section-title{font-size:13px;font-weight:600;color:#666;margin-bottom:8px}
-.detail-amenity{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
-.detail-amenity-cell{text-align:center;padding:8px 4px;background:#f7f8fa;border-radius:8px}
-.detail-amenity-cell .num{font-size:15px;font-weight:700;color:#333}
-.detail-amenity-cell .lbl{font-size:10px;color:#999;margin-top:1px}
-.listing-card{background:#f7f8fa;border-radius:10px;padding:12px;margin-bottom:6px}
-.listing-top{display:flex;justify-content:space-between;align-items:center}
-.listing-title{font-size:13px;font-weight:600;color:#333}
-.listing-price{font-size:15px;font-weight:700;color:#ff4d4f}
-.listing-meta{font-size:11px;color:#999;margin-top:4px;line-height:1.5}
-.listing-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;margin-left:4px;font-weight:600}
-.tag-share{background:#e6f7ff;color:#1890ff}.tag-whole{background:#f6ffed;color:#52c41a}
-.detail-nav-btn{display:block;width:100%;padding:13px 0;background:linear-gradient(135deg,#1890ff,#096dd9);color:#fff;border-radius:12px;font-size:14px;font-weight:600;text-align:center;text-decoration:none;margin-bottom:10px;box-shadow:0 2px 8px rgba(24,144,255,.25)}
-.detail-links{display:flex;gap:6px}
-.detail-link{flex:1;text-align:center;padding:10px 0;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none}
-.link-anjuke{background:#fff7e6;color:#d46b08}.link-beike{background:#f6ffed;color:#389e0d}.link-lianjia{background:#f0f5ff;color:#2f54eb}
-.route-info{background:#f0f7ff;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:12px;color:#1890ff;line-height:1.6}
-.route-mode{position:fixed;top:54px;right:10px;z-index:1000;display:flex;gap:4px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.route-mode button{border:none;background:transparent;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:#666;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.route-mode button.active{background:#1890ff;color:#fff;box-shadow:0 2px 6px rgba(24,144,255,.3)}
-</style>
-</head>
-<body>
-<div class="top-bar">
-  <h2>🏢 望京SOHO 通勤找房</h2>
-  <span class="tag">💰 预算 5000元/月 · 应届生</span>
-</div>
-<div class="route-mode" id="route-mode">
-  <button class="active" data-mode="transfer">🚌 公交</button>
-  <button data-mode="driving">🚗 驾车</button>
-  <button data-mode="metro">🚇 地铁</button>
-</div>
+.detail-stat .num{font-size:20px;font-weight:700}.detail-stat .lbl{font-size:10px;color:#999;margin-top:2px}
+.detail-nav-btn{display:block;width:100%;padding:13px;background:linear-gradient(135deg,#1890ff,#096dd9);color:#fff;border-radius:12px;font-size:14px;font-weight:600;text-align:center;text-decoration:none;margin-bottom:10px}
+.route-mode{position:fixed;top:max(50px,env(safe-area-inset-top,12px)+40px);right:12px;z-index:1000;display:flex;gap:4px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.route-mode button{border:none;background:transparent;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:#666;transition:all .2s}
+.route-mode button.active{background:#1890ff;color:#fff}
+</style></head><body>
+<div class="top-bar"><h2>📊 通勤找房 · 望京</h2><span class="tag">⏱ ≤30min</span><span class="tag" style="background:#f6ffed;color:#389e0d">💰 ¥3000</span></div>
 <div id="container"></div>
-<div class="bottom-sheet" id="sheet">
-  <div class="sheet-handle" id="handle"></div>
-  <div class="card-slider" id="card-slider"></div>
-  <div class="rank-section" id="rank-section"></div>
-</div>
+<div class="route-mode" id="routeMode"><button class="active" data-mode="transfer">🚌 公交</button><button data-mode="driving">🚗 驾车</button></div>
 <div class="overlay" id="overlay"></div>
-<div class="detail-popup" id="detail-popup">
-  <div class="detail-handle"></div>
-  <button class="detail-close" onclick="closeDetail()">✕</button>
-  <div id="detail-content"></div>
+<div class="detail-popup" id="detailPopup"><div class="detail-close" onclick="closeDetail()">✕</div><div id="detailContent"></div></div>
+<div class="bottom-sheet" id="sheet"><div class="sheet-handle" id="handle"></div>
+<div class="card-slider" id="cardSlider"></div>
+<div class="rank-section"><div class="rank-title">🏆 推荐排名</div><div id="rankList"></div></div>
 </div>
-
 <script>
-var params = new URLSearchParams(location.search);
-var JS_KEY = params.get('key') || 'a9754588a48e22af3f95c35ccc88bc0a';
-var SEC_CODE = params.get('security') || 'da93de59c9c39cfa96a0596131db2e77';
-window._AMapSecurityConfig = { securityJsCode: SEC_CODE };
+var p=new URLSearchParams(location.search);
+var JS_KEY=p.get('key')||'a9754588a48e22af3f95c35ccc88bc0a';
+var SEC_CODE=p.get('security')||'da93de59c9c39cfa96a0596131db2e77';
+window._AMapSecurityConfig={securityJsCode:SEC_CODE};
+var WORKPLACE={name:'望京',location:[116.470293,39.996171]};
+var AREAS=[
+  {name:'花家地',location:[116.466228,39.987398],color:'#1890ff',transit:{duration:20,transfers:0,line:'14号线',mode:'metro'},amenities:{market:23,hospital:118,gym:107,metro:6,food:412,cafe:0},score:78,tags:['🍜美食丰富','💪运动友好','🏘️成熟社区'],recommend:'best',bestFor:'通勤最短',livingCost:2700,commuteNote:'14号线直达20min，老社区生活气息浓'},
+  {name:'酒仙桥',location:[116.489619,39.968718],color:'#52c41a',transit:{duration:23,transfers:0,line:'14号线',mode:'metro'},amenities:{market:33,hospital:84,gym:118,metro:8,food:440,cafe:0},score:76,tags:['🍜美食丰富','💪运动友好','🚇交通枢纽'],recommend:null,bestFor:'配套最全',livingCost:2850,commuteNote:'14号线往北1站，早高峰有座位'},
+  {name:'将台',location:[116.488570,39.971505],color:'#fa8c16',transit:{duration:26,transfers:0,line:'14号线',mode:'metro'},amenities:{market:33,hospital:92,gym:121,metro:10,food:443,cafe:0},score:75,tags:['🍜美食丰富','💪运动友好','🚇交通枢纽'],recommend:null,bestFor:'配套最全',livingCost:2750,commuteNote:'配套总数699三区最高，通勤比花家地多6min'}
+];
+var AMENITY_LABELS={market:'超市菜场',hospital:'医院',gym:'健身',metro:'地铁',food:'餐饮',cafe:'咖啡奶茶'};
+var map=null,AMapRef=null,routePlanners=[],currentMode='transfer';
+function closeDetail(){document.getElementById('overlay').classList.remove('show');document.getElementById('detailPopup').classList.remove('show')}
+document.getElementById('overlay').addEventListener('click',closeDetail);
+(function(){var s=document.getElementById('sheet'),h=document.getElementById('handle'),y,H;h.addEventListener('click',function(){s.classList.toggle('expanded')});h.addEventListener('touchstart',function(e){y=e.touches[0].clientY;H=s.offsetHeight;h.style.cursor='grabbing';e.preventDefault()},{passive:false});document.addEventListener('touchmove',function(e){if(y==null)return;var d=y-e.touches[0].clientY;s.style.height=Math.max(100,Math.min(window.innerHeight*.8,H+d))+'px';s.classList.toggle('expanded',s.offsetHeight>window.innerHeight*.5)},{passive:false});document.addEventListener('touchend',function(){y=null;h.style.cursor='grab';s.style.height='';s.classList.toggle('expanded',s.offsetHeight>window.innerHeight*.5)})})();
+window.showDetail=function(a){var t=Object.values(a.amenities).reduce(function(x,y){return x+y},0);document.getElementById('detailContent').innerHTML='<div class="detail-name" style="color:'+a.color+'">📍 '+a.name+'</div><div class="detail-stats"><div class="detail-stat"><div class="num">'+a.transit.duration+'<span style="font-size:11px">min</span></div><div class="lbl">🚌 公交</div></div><div class="detail-stat"><div class="num" style="color:'+(a.score>=60?'#52c41a':'#ff4d4f')+'">'+a.score+'</div><div class="lbl">⭐ 综合分</div></div><div class="detail-stat"><div class="num">¥'+a.livingCost+'</div><div class="lbl">💰 每月总成本</div></div></div><p style="font-size:13px;color:#666;margin-bottom:8px">🏪 周边配套 <b>'+t+'</b> 个 | '+a.commuteNote+'</p>'+(a.tags.length?'<p style="margin-bottom:8px;font-size:13px">'+a.tags.join(' ')+'</p>':'')+'<a class="detail-nav-btn" href="https://uri.amap.com/navigation?to='+a.location[0]+','+a.location[1]+','+encodeURIComponent(a.name)+'&mode=car&coordinate=gaode" target="_blank">🧭 导航到 '+a.name+'</a><div style="display:flex;gap:6px"><a style="flex:1;text-align:center;padding:10px;background:#f6ffed;color:#52c41a;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none" href="https://bj.ke.com/zufang/rs'+encodeURIComponent(a.name)+'/" target="_blank">贝壳找房</a><a style="flex:1;text-align:center;padding:10px;background:#f0f5ff;color:#1890ff;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none" href="https://bj.lianjia.com/zufang/rs'+encodeURIComponent(a.name)+'/" target="_blank">链家租房</a></div>';document.getElementById('overlay').classList.add('show');document.getElementById('detailPopup').classList.add('show');document.getElementById('detailPopup').scrollTop=0;if(map){map.setCenter(a.location);map.setZoom(14)}};
+function fillPanel(){var s=AREAS.sort(function(a,b){return b.score-a.score}),m=['🥇','🥈','🥉'];s.forEach(function(a,i){var peak=Math.round(a.transit.duration*1.3),sc=a.score>=75?'#52c41a':'#faad14';document.getElementById('cardSlider').innerHTML+='<div class="area-card'+(i===0?' selected':'')+'" onclick="showDetail(AREAS['+AREAS.indexOf(a)+'])" style="border-left:3px solid '+a.color+'"><div class="card-header"><div class="card-name" style="color:'+a.color+'">'+m[i]+' '+a.name+'</div><div class="card-score" style="background:'+sc+'">'+a.score+'</div></div><div class="card-commute"><div class="commute-item"><div class="commute-num">'+a.transit.duration+'<span style="font-size:10px;color:#999">~'+peak+'min</span></div><div class="commute-lbl">🚌 公交</div></div><div class="commute-item"><div class="commute-num">'+a.amenities.market+'<span style="font-size:10px;color:#999">个</span></div><div class="commute-lbl">超市</div></div></div>'+(a.tags.length?'<div style="margin-bottom:6px">'+a.tags.map(function(t){return '<span style="font-size:10px;background:#f0f5ff;color:#1890ff;padding:2px 6px;border-radius:8px;margin-right:4px">'+t+'</span>'}).join('')+'</div>':'')+'<div style="font-size:12px;color:#52c41a;font-weight:600">💰 ¥'+a.livingCost+'/月</div></div>'});s.forEach(function(a,i){document.getElementById('rankList').innerHTML+='<div class="rank-item" onclick="showDetail(AREAS['+AREAS.indexOf(a)+'])" style="cursor:pointer"><span class="rank-medal">'+m[i]+'</span><span class="rank-name" style="color:'+a.color+'">'+a.name+'</span><div class="rank-bar-wrap"><div class="rank-bar" style="width:'+a.score+'%;background:'+a.color+'"></div></div><span class="rank-score">'+a.score+'</span></div>'})}
+function clearRoutes(){routePlanners.forEach(function(p){try{p.clear()}catch(e){}});routePlanners=[]}
+function drawRoutes(mode){if(!map||!AMapRef)return;clearRoutes();var from=new AMapRef.LngLat(WORKPLACE.location[0],WORKPLACE.location[1]);AREAS.forEach(function(a){var to=new AMapRef.LngLat(a.location[0],a.location[1]);if(mode==='driving'){try{var d=new AMapRef.Driving({map:map,hideMarkers:true,autoFitView:false});routePlanners.push(d);d.search(from,to,function(){})}catch(e){}}else{try{var t=new AMapRef.Transfer({map:map,policy:AMapRef.TransferPolicy.LEAST_TIME,hideMarkers:true,autoFitView:false,city:'北京'});routePlanners.push(t);t.search(from,to,function(s){if(s!=='complete')new AMapRef.Polyline({map:map,path:[from,to],strokeColor:a.color,strokeWeight:2,strokeStyle:'dashed',strokeOpacity:.6,showDir:true})})}catch(e){new AMapRef.Polyline({map:map,path:[from,to],strokeColor:a.color,strokeWeight:2,strokeStyle:'dashed',strokeOpacity:.6,showDir:true})}}})}
+document.querySelectorAll('#routeMode button').forEach(function(b){b.addEventListener('click',function(){document.querySelector('#routeMode .active').classList.remove('active');b.classList.add('active');currentMode=b.dataset.mode;drawRoutes(currentMode)})});
+fillPanel();
 </script>
 <script src="https://webapi.amap.com/loader.js"></script>
 <script>
-var WORKPLACE = { name: '望京SOHO(高德总部)', location: [116.481, 39.997] };
-var AREAS = [
-  {
-    name: '望京', location: [116.475, 39.990], color: '#1890ff',
-    transit: { duration: 10, transfers: 0, line: '步行10min', mode: 'walk' },
-    amenities: { market: 28, hospital: 12, gym: 18, metro: 6, food: 55, cafe: 25 },
-    score: 88, tags: ['🍜美食丰富', '☕文艺氛围'], recommend: 'best', bestFor: '应届生',
-    livingCost: 5200, commuteNote: '步行10min到公司，不依赖地铁，望京SOHO周边配套极全',
-    listings: [
-      { type: 'share', community: '望京西园', layout: '合租主卧', area: 25, price: 3500, pricePerSqm: 140, floor: '中层(18层)', decoration: '精装', monthlyTotal: 3700 },
-      { type: 'share', community: '望京花园', layout: '合租单间', area: 18, price: 2800, pricePerSqm: 156, floor: '高层(25层)', decoration: '精装', monthlyTotal: 3000 },
-      { type: 'whole', community: '宝星华庭', layout: '整租一居', area: 45, price: 6500, pricePerSqm: 144, floor: '高层(30层)', decoration: '精装', monthlyTotal: 6700 },
-    ],
-  },
-  {
-    name: '惠新西街', location: [116.408, 39.977], color: '#52c41a',
-    transit: { duration: 25, transfers: 0, line: '地铁5号线', mode: 'metro' },
-    amenities: { market: 28, hospital: 16, gym: 14, metro: 4, food: 35, cafe: 17 },
-    score: 80, tags: [], recommend: null, bestFor: '上班族',
-    livingCost: 4200, commuteNote: '地铁5号线25min直达望京，早高峰有座位（始发站方向），末班23:00',
-    listings: [
-      { type: 'share', community: '惠新里小区', layout: '合租主卧', area: 22, price: 2800, pricePerSqm: 127, floor: '中层(6层)', decoration: '', monthlyTotal: 3000 },
-      { type: 'share', community: '樱花园', layout: '合租单间', area: 15, price: 2200, pricePerSqm: 147, floor: '低层(4层)', decoration: '', monthlyTotal: 2400 },
-      { type: 'whole', community: '小关北里', layout: '整租一居', area: 40, price: 4500, pricePerSqm: 113, floor: '中层(8层)', decoration: '简装', monthlyTotal: 4700 },
-    ],
-  },
-  {
-    name: '立水桥', location: [116.407, 40.053], color: '#fa8c16',
-    transit: { duration: 32, transfers: 0, line: '地铁5/13号线', mode: 'metro' },
-    amenities: { market: 22, hospital: 14, gym: 8, metro: 5, food: 31, cafe: 15 },
-    score: 79, tags: ['🏘️成熟社区'], recommend: null, bestFor: '上班族',
-    livingCost: 3700, commuteNote: '地铁5号线32min直达望京，双线交汇交通便利，末班23:00',
-    listings: [
-      { type: 'share', community: '立水桥家园', layout: '合租主卧', area: 22, price: 2500, pricePerSqm: 114, floor: '中层(18层)', decoration: '精装', monthlyTotal: 2700 },
-      { type: 'share', community: '明天第一城', layout: '合租单间', area: 16, price: 2000, pricePerSqm: 125, floor: '高层(11层)', decoration: '', monthlyTotal: 2200 },
-      { type: 'whole', community: '东亚奥北', layout: '整租一居', area: 50, price: 4200, pricePerSqm: 84, floor: '中层(15层)', decoration: '精装', monthlyTotal: 4400 },
-    ],
-  },
-  {
-    name: '天通苑', location: [116.418, 40.072], color: '#722ed1',
-    transit: { duration: 45, transfers: 1, line: '地铁5号线→换乘', mode: 'metro' },
-    amenities: { market: 32, hospital: 18, gym: 12, metro: 8, food: 45, cafe: 13 },
-    score: 76, tags: ['🍜美食丰富', '🛒采购便利'], recommend: 'intern', bestFor: '实习生',
-    livingCost: 3200, commuteNote: '地铁5号线45min到望京，始发站有座位，早高峰不挤，末班23:00',
-    listings: [
-      { type: 'share', community: '天通苑', layout: '合租单间', area: 20, price: 1800, pricePerSqm: 90, floor: '中层(12层)', decoration: '简装', monthlyTotal: 2000 },
-      { type: 'share', community: '天通苑', layout: '合租主卧', area: 25, price: 2200, pricePerSqm: 88, floor: '高层(18层)', decoration: '精装', monthlyTotal: 2400 },
-      { type: 'whole', community: '天通苑', layout: '整租一居', area: 55, price: 3800, pricePerSqm: 69, floor: '中层(6层)', decoration: '', monthlyTotal: 4000 },
-    ],
-  },
-  {
-    name: '回龙观', location: [116.335, 40.070], color: '#eb2f96',
-    transit: { duration: 40, transfers: 0, line: '地铁13号线', mode: 'metro' },
-    amenities: { market: 25, hospital: 15, gym: 10, metro: 5, food: 40, cafe: 12 },
-    score: 74, tags: ['🏘️成熟社区'], recommend: 'cheap', bestFor: '极致省钱',
-    livingCost: 3000, commuteNote: '地铁13号线40min到望京西，互联网公司聚集区，配套成熟',
-    listings: [
-      { type: 'share', community: '龙泽苑', layout: '合租单间', area: 18, price: 1500, pricePerSqm: 83, floor: '低层(6层)', decoration: '简装', monthlyTotal: 1700 },
-      { type: 'share', community: '金域华府', layout: '合租主卧', area: 22, price: 2000, pricePerSqm: 91, floor: '高层(20层)', decoration: '精装', monthlyTotal: 2200 },
-      { type: 'whole', community: '矩阵小区', layout: '整租一居', area: 50, price: 3500, pricePerSqm: 70, floor: '中层(11层)', decoration: '', monthlyTotal: 3700 },
-    ],
-  },
-];
-
-var AMENITY_LABELS = { market: '超市菜场', hospital: '医院', gym: '健身', metro: '地铁', food: '餐饮', cafe: '咖啡奶茶' };
-var map = null;
-
-function closeDetail() {
-  document.getElementById('overlay').classList.remove('show');
-  document.getElementById('detail-popup').classList.remove('show');
-}
-document.getElementById('overlay').addEventListener('click', closeDetail);
-
-(function(){var s=document.getElementById('sheet'),h=document.getElementById('handle'),y,H;function os(e){var t=e.touches?e.touches[0]:e;y=t.clientY;H=s.offsetHeight;h.style.cursor='grabbing';e.preventDefault()}function om(e){if(y===undefined)return;var t=e.touches?e.touches[0]:e;var d=y-t.clientY,v=innerHeight,n=Math.max(v*.2,Math.min(v*.85,H+d));s.style.height=n+'px';s.classList.toggle('expanded',n>v*.55)}function oe(){y=undefined;h.style.cursor='grab'}h.addEventListener('touchstart',os,{passive:false});h.addEventListener('mousedown',os);document.addEventListener('touchmove',om,{passive:false});document.addEventListener('mousemove',om);document.addEventListener('touchend',oe);document.addEventListener('mouseup',oe)})();
-
-window.showDetail = function(area) {
-  var totalAmen = Object.values(area.amenities).reduce(function(a,b){return a+b}, 0);
-  var navUrl = 'https://uri.amap.com/navigation?to='+area.location[0]+','+area.location[1]+','+encodeURIComponent(area.name)+'&mode=car&coordinate=gaode';
-  var encName = encodeURIComponent(area.name);
-  var amenityHtml = '';
-  Object.entries(area.amenities).forEach(function(p) {
-    amenityHtml += '<div class="detail-amenity-cell"><div class="num">'+p[1]+'</div><div class="lbl">'+(AMENITY_LABELS[p[0]]||p[0])+'</div></div>';
-  });
-  var listingsHtml = '<div class="detail-section-title">🏘️ 推荐房源</div><div style="margin-bottom:14px;">';
-  area.listings.forEach(function(l, i) {
-    var tag = l.type === 'share' ? '<span class="listing-tag tag-share">合租</span>' : '<span class="listing-tag tag-whole">整租</span>';
-    listingsHtml += '<div class="listing-card"><div class="listing-top"><span class="listing-title">'+(i+1)+'. '+l.layout+' '+l.area+'㎡'+tag+'</span><span class="listing-price">'+l.price+'元/月</span></div><div class="listing-meta">'+l.community+' · '+l.floor+(l.decoration?' · '+l.decoration:'')+' · 单价'+l.pricePerSqm+'元/㎡ · 每月总成本'+l.monthlyTotal+'元</div></div>';
-  });
-  listingsHtml += '</div>';
-  var scoreColor = area.score >= 75 ? '#52c41a' : '#faad14';
-  var tagLine = area.tags.length ? '<div style="margin-bottom:14px;font-size:12px;color:#666;">'+area.tags.join(' ')+'</div>' : '';
-  var routeHtml = area.transit.mode === 'walk'
-    ? '<div class="route-info">🚶 '+area.transit.line+' · 不依赖公共交通<br>'+area.commuteNote+'</div>'
-    : '<div class="route-info">🚇 '+area.transit.line+' · '+(area.transit.transfers===0?'直达':area.transit.transfers+'次换乘')+' · 约'+area.transit.duration+'分钟<br>'+area.commuteNote+'</div>';
-  var livingCostHtml = '<div style="background:#f6ffed;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:12px;color:#389e0d;line-height:1.6">💰 每月总支出估算：<b>'+area.livingCost+'元/月</b>　适合：<b>'+area.bestFor+'</b></div>';
-  var recommendBadge = '';
-  if (area.recommend === 'best') recommendBadge = '<div style="background:#52c41a;color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:10px">✅ 应届生推荐</div>';
-  else if (area.recommend === 'intern') recommendBadge = '<div style="background:#fa8c16;color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:10px">🎓 实习生首选</div>';
-  else if (area.recommend === 'cheap') recommendBadge = '<div style="background:#eb2f96;color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;display:inline-block;margin-bottom:10px">💰 极致省钱</div>';
-
-  document.getElementById('detail-content').innerHTML =
-    '<div class="detail-header"><div class="detail-name" style="color:'+area.color+'">📍 '+area.name+'</div><div class="detail-subtitle">'+area.transit.line+' · 综合评分 '+area.score+' 分</div></div>'
-    +recommendBadge
-    +'<div class="detail-stats"><div class="detail-stat"><div class="num">'+area.transit.duration+'<span class="num-unit"> min</span></div><div class="lbl">'+(area.transit.mode==='walk'?'🚶 步行':'🚌 通勤')+'</div></div><div class="detail-stat"><div class="num" style="color:'+scoreColor+'">'+area.score+'</div><div class="lbl">⭐ 综合评分</div></div><div class="detail-stat"><div class="num">'+area.listings[0].price+'<span class="num-unit"> 元起</span></div><div class="lbl">💰 合租最低</div></div></div>'
-    +routeHtml+livingCostHtml+tagLine
-    +'<div class="detail-section-title">🏪 周边配套 <b style="color:#333">'+totalAmen+'</b> 个</div><div class="detail-amenity">'+amenityHtml+'</div>'
-    +listingsHtml
-    +'<a class="detail-nav-btn" href="'+navUrl+'" target="_blank">🧭 导航到 '+area.name+'</a>'
-    +'<div class="detail-links"><a class="detail-link link-anjuke" href="https://bj.zu.anjuke.com/fangyuan/?kw='+encName+'%E6%95%B4%E7%A7%9F" target="_blank">安居客</a><a class="detail-link link-beike" href="https://bj.ke.com/zufang/rs'+encName+'/" target="_blank">贝壳找房</a><a class="detail-link link-lianjia" href="https://bj.lianjia.com/zufang/rs'+encName+'/" target="_blank">链家租房</a></div>';
-  document.getElementById('overlay').classList.add('show');
-  document.getElementById('detail-popup').classList.add('show');
-  document.getElementById('detail-popup').scrollTop = 0;
-  if (map) { map.setCenter(area.location); map.setZoom(13); }
-};
-
-fillPanel();
-
-var routePlanners = [], currentMode = 'transfer', AMapRef = null;
-function clearRoutes() { routePlanners.forEach(function(p) { try { p.clear(); } catch(e) {} }); routePlanners = []; }
-function drawRoutes(mode) {
-  if (!map || !AMapRef) return; clearRoutes();
-  var from = new AMapRef.LngLat(WORKPLACE.location[0], WORKPLACE.location[1]);
-  AREAS.forEach(function(area) {
-    if (area.transit.mode === 'walk') return;
-    var to = new AMapRef.LngLat(area.location[0], area.location[1]);
-    if (mode === 'driving') {
-      try { var d = new AMapRef.Driving({map:map,hideMarkers:true,autoFitView:false}); routePlanners.push(d); d.search(from,to,function(){}); } catch(e){}
-    } else {
-      try { var policy = mode==='metro' ? AMapRef.TransferPolicy.LEAST_TRANSFER : AMapRef.TransferPolicy.LEAST_TIME;
-        var t = new AMapRef.Transfer({map:map,policy:policy,hideMarkers:true,autoFitView:false,city:'北京'}); routePlanners.push(t); t.search(from,to,function(s){ if(s!=='complete') new AMapRef.Polyline({map:map,path:[from,to],strokeColor:area.color,strokeWeight:2,strokeStyle:'dashed',strokeOpacity:.6,showDir:true}); });
-      } catch(e) { new AMapRef.Polyline({map:map,path:[from,to],strokeColor:area.color,strokeWeight:2,strokeStyle:'dashed',strokeOpacity:.6,showDir:true}); }
-    }
-  });
-}
-document.querySelectorAll('#route-mode button').forEach(function(btn) { btn.addEventListener('click', function() { document.querySelector('#route-mode .active').classList.remove('active'); btn.classList.add('active'); currentMode=btn.dataset.mode; drawRoutes(currentMode); }); });
-
-AMapLoader.load({ key: JS_KEY, version: '2.0', plugins: ['AMap.Driving', 'AMap.Transfer'] }).then(function(AMap) {
-  AMapRef = AMap; map = new AMap.Map('container', { center: [116.43, 40.02], zoom: 11, viewMode: '2D' });
-  new AMap.Marker({ position: WORKPLACE.location, map: map, content: '<div style="background:#333;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap">🏢 '+WORKPLACE.name+'</div>' });
-  AREAS.forEach(function(area, i) {
-    var icon = area.transit.mode === 'walk' ? '🚶' : '📍';
-    var badge = '';
-    if (area.recommend === 'best') badge = ' <span style="background:#52c41a;padding:1px 5px;border-radius:4px;font-size:10px;margin-left:4px">推荐</span>';
-    else if (area.recommend === 'intern') badge = ' <span style="background:#fa8c16;padding:1px 5px;border-radius:4px;font-size:10px;margin-left:4px">实习生首选</span>';
-    else if (area.recommend === 'cheap') badge = ' <span style="background:#eb2f96;padding:1px 5px;border-radius:4px;font-size:10px;margin-left:4px">最省钱</span>';
-    new AMap.Marker({ position: area.location, map: map, content: '<div style="background:'+area.color+';color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer" onclick="showDetail(AREAS['+i+'])">'+icon+' '+area.name+badge+'</div>' });
-  });
+AMapLoader.load({key:JS_KEY,version:'2.0',plugins:['AMap.Driving','AMap.Transfer']}).then(function(AMap){
+  AMapRef=AMap;map=new AMap.Map('container',{center:[116.48,39.99],zoom:12,viewMode:'2D'});
+  new AMap.Marker({position:WORKPLACE.location,map:map,content:'<div style="background:#333;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap">🏢 望京</div>'});
+  AREAS.forEach(function(a,i){var b='';if(a.recommend==='best')b=' <span style="background:#52c41a;padding:1px 5px;border-radius:4px;font-size:10px;margin-left:4px">推荐</span>';new AMap.Marker({position:a.location,map:map,content:'<div style="background:'+a.color+';color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer" onclick="showDetail(AREAS['+i+'])">📍 '+a.name+b+'</div>'});});
   drawRoutes('transfer');
-}).catch(function(){});
-
-function fillPanel() {
-  var medals=['🥇','🥈','🥉','④','⑤'], sorted=AREAS.slice().sort(function(a,b){return b.score-a.score}), maxScore=sorted[0].score;
-  var slider=document.getElementById('card-slider'); slider.innerHTML='';
-  AREAS.forEach(function(area,i){
-    var sc=area.score>=75?'#52c41a':'#faad14', lr=area.listings[0].price, at='';
-    Object.entries(area.amenities).forEach(function(p){at+='<span class="amenity-tag">'+(AMENITY_LABELS[p[0]]||p[0])+' <b>'+p[1]+'</b></span>'});
-    var commuteText = area.transit.mode==='walk' ? '🚶 '+area.transit.duration+'min' : area.transit.duration+'min';
-    var commuteLbl = area.transit.mode==='walk' ? '步行可达' : (area.transit.transfers===0?'直达':area.transit.transfers+'次换乘');
-    var badgeHtml = '';
-    if (area.recommend === 'best') badgeHtml = '<div style="font-size:10px;color:#52c41a;font-weight:600;margin-bottom:6px">✅ 应届生推荐</div>';
-    else if (area.recommend === 'intern') badgeHtml = '<div style="font-size:10px;color:#fa8c16;font-weight:600;margin-bottom:6px">🎓 实习生首选</div>';
-    else if (area.recommend === 'cheap') badgeHtml = '<div style="font-size:10px;color:#eb2f96;font-weight:600;margin-bottom:6px">💰 极致省钱</div>';
-    slider.innerHTML+='<div class="area-card" onclick="showDetail(AREAS['+i+'])">'+badgeHtml+'<div class="card-header"><span class="card-name">'+medals[i]+' '+area.name+'</span><span class="card-score" style="background:'+sc+'">'+area.score+'</span></div><div class="card-commute"><div class="commute-item"><div class="commute-num">'+commuteText+'</div><div class="commute-lbl">'+commuteLbl+'</div></div><div class="commute-item"><div class="commute-num">'+lr+'元起</div><div class="commute-lbl">💰 合租最低</div></div></div><div style="font-size:10px;color:#999;margin-top:6px">每月总支出约 '+area.livingCost+'元 · 适合'+area.bestFor+'</div><div class="card-amenity">'+at+'</div></div>';
-  });
-  var rank=document.getElementById('rank-section'); rank.innerHTML='<div class="rank-title">📊 排名详情</div>';
-  sorted.forEach(function(area,i){var bc=area.score>=75?'#52c41a':'#faad14';rank.innerHTML+='<div class="rank-item"><span class="rank-medal">'+medals[i]+'</span><span class="rank-name">'+area.name+'</span><div class="rank-bar-wrap"><div class="rank-bar" style="width:'+Math.round(area.score/maxScore*100)+'%;background:'+bc+'"></div></div><span class="rank-score-text">'+area.score+'</span></div>'});
-}
+});
 </script>
-</body>
-</html>
+</body></html>

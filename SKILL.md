@@ -1,6 +1,6 @@
 ---
 name: amap-settle-guide
-display_name: 通勤找房助手 Commute Rental Guide
+display_name: amap-settle-guide 通勤找房助手 Commute Rental Guide
 version: 1.0.0
 description: 输入上班地点，沿地铁线自动发现适合租房的区域，评估通勤时间、周边配套、租金性价比，推荐 Top 3 区域 + 具体房源 + 找房链接。面向实习生、应届毕业生、换工作人群。
 tags:
@@ -221,17 +221,19 @@ metadata:
 4. 下一步 → 去看房链接
 ```
 
-**CSV 输出**：
+**CSV 输出**（保留全部候选区域，数据完整可复查）：
 
-`rental_areas.csv`（区域对比表）：
+`rental_areas.csv` — **所有 6-8 个候选区域**的对比数据：
 ```csv
-排名,区域,地铁线,通勤时间,换乘次数,参考租金,配套数,综合评分,画像标签,每月总成本
+排名,区域,地铁线,通勤时间,换乘次数,合租参考租金,整租一居参考租金,配套数,综合评分,画像标签,每月总成本
 ```
+（文字报告只展示 Top 3，CSV 保留全量方便用户自己筛选）
 
-`rental_listings.csv`（房源明细表）：
+`rental_listings.csv` — **所有候选区域**的房源明细：
 ```csv
 区域,小区,户型,面积㎡,价格元/月,单价元/㎡,楼层,装修,通勤时间,每月总成本,推荐理由,安居客链接
 ```
+（每个区域至少 2-3 套房源，总行数 ≥ 15 行）
 
 **找房链接**（每个区域必附）：
 
@@ -294,8 +296,8 @@ metadata:
   惠新西街：安居客 https://bj.zu.anjuke.com/fangyuan/?kw=惠新西街整租
 
 📁 已生成 CSV 文件：
-  rental_areas.csv — 区域对比表（3 个区域）
-  rental_listings.csv — 房源明细表（所有推荐房源）
+  rental_areas.csv — 区域对比表（全部 6 个候选区域）
+  rental_listings.csv — 房源明细表（15+ 套房源，覆盖所有候选区域）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
